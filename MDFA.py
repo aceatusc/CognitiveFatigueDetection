@@ -24,8 +24,11 @@ class MDFA:
     - channel:string = which channel is currently being measured
     - scales:int[] = scales of segments to measure
     - q:NDArray[floating[Any]]
+      - The selection should include both negative and positive values
+      - The choices should avoid large negative and positive values
+      - A sufficient choice of q-orders will be between -5 and 5 for most biomedical time-series
     - plot:boolean = whether to show plot or not
-    - order:int
+    - order:int = AKA m, a higher order m yields a more complex shape of the trend. Thus m=1-3 is sufficient for smallest segments of size containing 10-20 samples.
     - k:int|False
 
     Displays
@@ -132,7 +135,7 @@ class MDFA:
 
   def MDFA_whole(self):
     """
-    Caclulate the Fq, RMS, Hq and other multifrcal metrics for whole signla (data). if want to run MDFA on segents or intervals of data use MDFA_segments
+    Calculates the Fq, RMS, Hq and other multifrcal metrics for whole signal (data).
     """
     RMS, self.Fq = self.calculate_RMS_Fq(self.data)
     self.Hq,qRegLine = self.calculate_Hq_qRegLine(self.Fq)
@@ -166,6 +169,9 @@ class MDFA:
       return segments
 
   def MDFA_segments(self):
+    """
+    Calculates the Fq, RMS, Hq and other multifrcal metrics for segments or intervals of signal (data).
+    """
     self.Fq_SGM,self.Hq_SGM , self.Dq_SGM,self.tq_SGM, self.hq_SGM = [],[],[],[],[]
     for idx, seg in enumerate(self.segments):
       RMS, self.Fq = self.calculate_RMS_Fq(seg)
