@@ -18,7 +18,7 @@ def test(
     plot:bool, 
     order:int, 
     k:int|bool
-  ):
+  ) -> None:
 
   """
   Test dataset with MDFA
@@ -32,7 +32,7 @@ def test(
   - scales:list[int] = List of scales used for MDFA
   - q:np.ndarray[np.floating[np.any]] = q-order input
   - plot:bool = Whether to display plot or not
-  - order:int = aka m, use values 1-3 for smallest segments between 10-20
+  - order:int = aka m, use values 1-3 for smallest segments between 10-20 values
   - k:int|bool
 
   Displays
@@ -69,6 +69,7 @@ if __name__ == '__main__':
   # Function variables
   scales = [16, 32, 64, 128, 256, 512, 1024]
   q = np.linspace(-8, 8, 100) # Testing stuff
-
+  
+  # Tests
   test(True, False, NASA_dataset_root, filtered_files, scales, q, True, 2, k=False)
   test(False, True, NASA_dataset_root, filtered_files, scales, q, False, 2, k=100000)

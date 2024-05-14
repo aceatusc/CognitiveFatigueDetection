@@ -6,7 +6,8 @@ class MDFA:
 
   __slots__ = ('order','q','scales','k','data','Fq','Hq','hq','tq','Dq','Fq_SGM','Hq_SGM','hq_SGM','tq_SGM','Dq_SGM','segments') # Slots for object, saves memory
   
-  def __init__(self, 
+  def __init__(
+      self, 
       signal, 
       channel:str, 
       scales:list[int], 
