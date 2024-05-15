@@ -3,11 +3,13 @@ import matplotlib.pyplot as plt
 
 
 class MDFA:
-  def __init__(self,signal, channel, scales, q, plot,order,k):
+  def __init__(self,signal, channel, scales, q, plot,order,k,fname):
     self.order=order
     self.q =q
     self.scales = scales
     self.k = k
+    self.fname = fname
+    self.channel = channel
     if channel == 'A2': channel = 0
     elif channel == 'Cz': channel = 1
     elif channel == 'EoG_R': channel = 2
@@ -97,6 +99,7 @@ class MDFA:
         axs[index].legend()
 
     plt.tight_layout()
+    plt.savefig(f"plots/MDFA/{self.fname}_{self.channel}_all.png",dpi=300)
     plt.show()
 
   def MDFA_whole(self):
@@ -149,17 +152,15 @@ class MDFA:
       self.Fq_SGM.append(self.Fq)
       self.Dq_SGM.append(self.Dq)
       self.tq_SGM.append(self.tq)
-      print("Segment {} of signal :".format(idx))
+      # print("Segment {} of signal :".format(idx))
       # self.plot_results()
     self.plot_dq_segments()
 
 
   def plot_dq_segments(self):
     num_plots = len(self.Dq_SGM)
-
     num_cols = 6
     num_rows = (num_plots + num_cols - 1) // num_cols  # Calculate rows needed
-
     # Create subplots
     fig, axs = plt.subplots(num_rows, num_cols, figsize=(15, num_rows * 3))  # Adjust size as needed
     axs = axs.flatten()  # Flatten the array to simplify indexing
@@ -174,4 +175,5 @@ class MDFA:
         axs[j].axis('off')
 
     plt.tight_layout()
+    plt.savefig(f"plots/MDFA/{self.fname}_{self.channel}_{self.k}.png",dpi=300)
     plt.show()
