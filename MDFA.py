@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 class MDFA:
 
-  __slots__ = ('order','q','scales','k','data','Fq','Hq','hq','tq','Dq','Fq_SGM','Hq_SGM','hq_SGM','tq_SGM','Dq_SGM','segments') # Slots for object, saves memory
+  __slots__ = ('order','q','scales','k','data','Fq','Hq','hq','tq','Dq','Fq_SGM','Hq_SGM','hq_SGM','tq_SGM','Dq_SGM','segments','fname') # Slots for object, saves memory
   
   def __init__(
       self, 
@@ -14,7 +14,8 @@ class MDFA:
       q:np.ndarray[np.floating[np.any]], 
       plot:bool,
       order:int,
-      k:int|bool
+      k:int|bool,
+      fname:str
     ):
     """
     MDFA function calculation, analysis, and plotting.
@@ -30,7 +31,8 @@ class MDFA:
       - A sufficient choice of q-orders will be between -5 and 5 for most biomedical time-series
     - plot:boolean = whether to show plot or not
     - order:int = AKA m, a higher order m yields a more complex shape of the trend. Thus m=1-3 is sufficient for smallest segments of size containing 10-20 samples.
-    - k:int|False
+    - k:int|False = size of the each segment 
+    - fnamr: str = file name of the original data
 
     Displays
     --------------

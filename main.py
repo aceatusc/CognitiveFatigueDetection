@@ -17,7 +17,8 @@ def test(
     q:np.ndarray[np.floating[np.any]], 
     plot:bool, 
     order:int, 
-    k:int|bool
+    k:int|bool,
+    fname:str
   ) -> None:
 
   """
@@ -48,7 +49,7 @@ def test(
       vhdr_file_path = os.path.join(dataset_root,f'{fname}/{fname}_D1.vhdr')
       raw = mne.io.read_raw_brainvision(vhdr_file_path, preload=True)
       signal, times = raw[:]
-      mdfa = MDFA(signal,'A2', scales, q, plot, order, k=k)
+      mdfa = MDFA(signal,'A2', scales, q, plot, order, k=k,fname=fname)
       if whole:
         mdfa.MDFA_whole()
       if segments:
