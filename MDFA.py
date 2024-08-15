@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 class MDFA:
 
-  __slots__ = ('order','q','scales','k','data','Fq','Hq','hq','tq','Dq','Fq_SGM','Hq_SGM','hq_SGM','tq_SGM','Dq_SGM','segments','fname') # Slots for object, saves memory
+  __slots__ = ('order','q','scales','k','data','Fq','Hq','hq','tq','Dq','Fq_SGM','Hq_SGM','hq_SGM','tq_SGM','Dq_SGM','segments','fname','channel','dataset_name') # Slots for object, saves memory
   
   def __init__(
       self, 
@@ -15,7 +15,8 @@ class MDFA:
       plot:bool,
       order:int,
       k:int|bool,
-      fname:str
+      fname:str,
+      dataset_name : str
     ):
     """
     MDFA function calculation, analysis, and plotting.
@@ -33,6 +34,7 @@ class MDFA:
     - order:int = AKA m, a higher order m yields a more complex shape of the trend. Thus m=1-3 is sufficient for smallest segments of size containing 10-20 samples.
     - k:int|False = size of the each segment 
     - fnamr: str = file name of the original data
+    - dataset_name = name of the dataset
 
     Displays
     --------------
@@ -48,11 +50,24 @@ class MDFA:
     self.scales = scales
     self.k = k
     self.fname = fname
+    self.dataset_name = dataset_name
     self.channel = channel
-    if channel == 'A2': channel = 0
-    elif channel == 'Cz': channel = 1
-    elif channel == 'EoG_R': channel = 2
-    elif channel == 'EoG_L': channel = 3
+
+    if self.dataset_name == 'NASA':
+      if channel == 'A2': channel = 0
+      elif channel == 'Cz': channel = 1
+      elif channel == 'EoG_R': channel = 2
+      elif channel == 'EoG_L': channel = 3
+    elif self.dataset_name == 'MEFAR':
+      if channel == 'Delta': channel = 0
+      elif channel == 'Theta': channel = 1
+      elif channel == 'Alpha1': channel = 2
+      elif channel == 'Alpha2': channel = 3
+      elif channel == 'Beta1': channel = 4
+      elif channel == 'Beta2': channel = 5
+      elif channel == 'Gamma1': channel = 6
+      elif channel == 'Gamma2': channel = 7
+
     else:
       raise("channel is not in the data")
 

@@ -140,7 +140,7 @@ def perform_cwt(sig, scales, wavelet, epsilon=0.1, order=1, plot=False, remove_i
         raise ValueError('Please pass pywt.ContinuousWavelet object...')
 
     # normalize the signal to fit in the wavelet
-    sig = normalize_signal(sig)
+    # sig = normalize_signal(sig)
 
     # Run the transform
     w_coefs, freqs = pywt.cwt(sig, scales, wavelet)
@@ -157,9 +157,8 @@ def perform_cwt(sig, scales, wavelet, epsilon=0.1, order=1, plot=False, remove_i
 
     if plot:
         to_plot = np.ma.masked_array(mask, mask=(mask == 0))
-        plt.figure(figsize=(10, 8))
+        plt.figure(figsize=(5, 4))
         plt.pcolormesh(to_plot)
-        #plt.title('WTMM mask')
         if not np.all(np.diff(scales) == 1):
             scales_str = ['%.2f' % sc for sc in scales]
             plt.yticks(range(mask.shape[0]), scales_str)

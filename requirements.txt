@@ -1,0 +1,7 @@
+numpy
+pandas
+ts2vg
+fbm
+networkx
+matplotlib
+scipy
