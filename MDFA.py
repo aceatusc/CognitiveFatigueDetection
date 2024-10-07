@@ -18,6 +18,7 @@ class MDFA:
       fname:str,
       dataset_name : str
     ):
+
     """
     MDFA function calculation, analysis, and plotting.
 
@@ -58,7 +59,7 @@ class MDFA:
       elif channel == 'Cz': channel = 1
       elif channel == 'EoG_R': channel = 2
       elif channel == 'EoG_L': channel = 3
-    elif self.dataset_name == 'MEFAR':
+    if self.dataset_name == 'MEFAR':
       if channel == 'Delta': channel = 0
       elif channel == 'Theta': channel = 1
       elif channel == 'Alpha1': channel = 2
@@ -68,11 +69,18 @@ class MDFA:
       elif channel == 'Gamma1': channel = 6
       elif channel == 'Gamma2': channel = 7
 
-    else:
-      raise("channel is not in the data")
+    # else:
+    #   raise("channel is not in the data")
 
-    self.data = signal[channel]
-   
+    if self.dataset_name == "Rest-StateEEG":
+      self.data, times = signal[channel]
+      self.data = self.data[0]
+      print('the length of the data is :', len(self.data))
+  
+    else:
+      self.data = signal[channel]
+
+
     if not k or k == len(self.data):
       self.MDFA_whole()
       if plot:

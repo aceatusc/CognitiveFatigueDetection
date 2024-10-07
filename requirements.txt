@@ -5,3 +5,4 @@ fbm
 networkx
 matplotlib
 scipy
+statsmodels
